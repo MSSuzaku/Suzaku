@@ -1,0 +1,37 @@
+package com.company;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("请输入充电个数：");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt(); // 输入设备个数
+
+        int[] powers = new int[n];// 存储每个设备的输出功率
+
+        System.out.println("请输入每个设备的输出功率：");
+        for (int i = 0; i < n; i++) {
+            powers[i] = scanner.nextInt(); // 输入每个设备的输出功率
+        }
+
+        System.out.println("请输入充电站的最大输出功率：");
+        int Max = scanner.nextInt(); // 输入最大输出功率
+
+        int[][] dp = new int[powers.length + 1][Max + 1]; // 计算前 i 个设备，功率不超过 j 的最大值
+        int i, j;
+        for (i = 1; i <= powers.length; i++) {
+            for (j = 1; j <= Max; j++) {
+                if (powers[i - 1] > j) {
+                    // 如果第 i 个设备的输出功率大于 j，则放弃选择第 i 个设备
+                    dp[i][j] = dp[i - 1][j];
+                }
+                else { // 如果第 i 个设备的输出功率小于等于 j，则第 i 个设备可以选或不选
+                    dp[i][j] = Math.max(dp[i - 1][j], powers[i - 1] + dp[i - 1][j - powers[i - 1]]);
+                }
+            }
+        }
+        System.out.println("最优元素为：" + dp[n][Max]); // 返回最大值
+    }
+}
+
