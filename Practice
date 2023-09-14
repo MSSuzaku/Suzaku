@@ -1,0 +1,126 @@
+package main;
+
+import java.util.Scanner;
+
+public class Main {
+    private int ob;//全局变量
+public static void main(String[] args){
+
+    //本代码用于个人练习用，不做为任何作业，请注意！
+    //一个代码文件中可以定义多个类，但是只能一个类是public修饰的，public修饰的雷鸣必须是Java代码的文件名称
+    //成员变量的完整定义格式是：修饰符 数据类型 变量名称 = 初始化值;
+
+    /*整数，小数
+    System.out.println(666);
+    System.out.println(-777);
+
+    //字符，字符串
+    System.out.println("沐笙Suzaku");
+    System.out.println('A');
+
+    //布尔类型
+    System.out.println(true);
+    System.out.println(false);
+
+    //空类型
+    //null不能直接打印，只能用字符串的形式打印
+    System.out.println(null);
+    System.out.println("null");
+
+    // \t 制表符
+    System.out.println("name" + '\t' + "age");
+    System.out.println("沐笙Suzaku" + '\t' + "20");
+
+    //变量使用
+    int a = 10,c = 30;
+    int b = 20;
+    a = 50;
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    System.out.println(a+b);
+    System.out.println(a+b+c);
+
+    byte b =10;
+    System.out.println(b);
+
+    short s = 20;
+    System.out.println(s);
+
+    int i = 30;
+    System.out.println(i);
+
+    //如果要定义long类型的变量
+    //在数值的后面需要加一个L/l作为后缀
+    long n = 999999999L;
+    System.out.println(n);
+
+    //定义float类型变量的时候
+    //数据值也需要加F/f作为后缀
+    float f = 10.1F;
+    System.out.println(f);
+
+    double d = 20.02;
+    System.out.println(d);
+
+    char c = '沐';
+    System.out.println(c);
+
+    boolean o = true;
+    System.out.println(o);
+
+    Scanner sc = new Scanner(System.in);//只有sc是变量
+    System.out.println("请输入数据");
+    int i = sc.nextInt();//只有i是变量
+    int j = sc.nextInt();
+    System.out.println(i+j);
+
+    System.out.println(3+2);//输入sout+tab可以快速输入输出语句
+    System.out.println(5-1);
+    System.out.println(7*9);
+    //在代码中，如果有小数参与计算，结果有可能不精确的
+    System.out.println(1.1+1.01);
+    System.out.println(1.1-1.01);
+    System.out.println(1.1*1.01);
+
+    int age = 19;
+    System.out.println("我的年龄是：" + age + " 岁");
+    System.out.println("如果代码无误，接下来会打印方法里面的东西：");
+    Suzaku();//调用方法
+
+    String s1 = "abc";//直接赋值字符串
+    System.out.println(s1);
+
+    String s2 = new String();//空参构造
+    System.out.println("@" + s2 + "!");
+
+    char[] chs = {'a','b','c','d'};//传递字符数组，可以修改字符串的内容
+    String s4 = new String(chs);
+    System.out.println(s4);
+
+    String a = "abc";//记录串池中的地址值
+    String s1 = new String("abc");//记录堆里面的地址值
+    String s2 = new String("ccc");
+    System.out.println(a==s1);//比较地址值
+    System.out.println(s1==s2);*/
+
+    Scanner sc = new Scanner(System.in);//键盘输入字符串
+    System.out.println("请输入一个字符串");
+    String str = sc.next();
+
+    for(int i = 0;i< str.length();i++)//遍历字符串
+    {
+        char c = str.charAt(i);
+        System.out.println(c);
+    }
+
+}
+/*public static void Suzaku(){//新建一个方法
+    System.out.println("测试方法用");
+    System.out.println("打多几条试试");
+    System.out.println("再打一条凑个三");
+    int ob;//局部变量
+    this.ob = ob;*/
+}
+
+
