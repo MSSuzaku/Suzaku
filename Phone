@@ -1,0 +1,95 @@
+package ThePhoneText;
+
+//定义数组存储3三部手机对象
+//手机的属性：品牌，价格，颜色
+//要求，计算出三部手机的平均价格
+
+
+//alt + insert键快速建立方法
+
+public class Phone {
+    private String brand;
+    private int price;
+    private String color;
+
+    public Phone() {
+
+    }
+
+    public Phone(String brand, int price, String color) {
+        this.brand = brand;
+        this.price = price;
+        this.color = color;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+}//以上为新建JavaBean
+
+
+
+
+
+package ThePhoneText;
+
+//定义数组存储3三部手机对象
+//手机的属性：品牌，价格，颜色
+//要求，计算出三部手机的平均价格
+
+public class PhoneText {
+    public static void main(String[] args) {
+        //创建一个数组
+        Phone[] arr = new Phone[3];
+
+        //创建手机对象
+        Phone p1 = new Phone("小米",1999,"白色");
+        Phone p2 = new Phone("华为",4999,"蓝色");
+        Phone p3 = new Phone("魅族",3999,"红色");
+
+        //把手机对象添加到数组当中
+        arr[0] = p1;
+        arr[1] = p2;
+        arr[2] = p3;
+
+        //获取三部手机的平均价格
+        int sum = 0;
+        for(int i = 0;i<arr.length;i++){
+            //i索引 arr[i] 元素（手机对象）
+            Phone phone = arr[i];
+            sum = sum + phone.getPrice();
+        }
+
+        //求平局值
+        //数据能不写死，尽量不写死
+        //nt avg = sum / arr.length;
+
+        double avg2 = sum * 1.0/arr.length;
+
+        System.out.println(avg2);
+
+
+    }
+}
+
+
