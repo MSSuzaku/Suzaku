@@ -1,6 +1,32 @@
-package com.company;
+一、题目描述
+某个充电站，可提供n个充电设备，每个充电设备均有对应的输出功率。任意个充电设备组合的输出功率总和，均构成功率集合P的1个元素。功率集合P的最优元素，表示最接近充电站最大输出功率p_max的元素。
 
-import java.util.*;
+二、输入描述
+输入3行：
+
+第1行为充电设备个数n；
+第2行为每个充电设备的输出功率；
+第3行为充电站最大输出功率p_max；
+三、输出描述
+功率集合P的最优元素。
+
+四、补充说明
+充电设备个数n>04；
+最优元素必须小于或等于充电站最大输出功率p_max；
+五、Java算法源码
+public static void main(String[] args) {Scanner sc = new Scanner(System.in);int n = sc.nextInt();List<Integer> numbers = new ArrayList<>();for (int i = 0; i < n; i++) {numbers.add(sc.nextInt());}int p_max = sc.nextInt();int max = 0;Set<Integer> objects = new HashSet<>();objects.add(0);for (Integer number : numbers) {Set<Integer> objects1 = new HashSet<>();for (Integer object : objects) {int newobj = object + number;if (newobj <= p_max) {objects1.add(newobj);max = Math.max(max, newobj);}}objects.addAll(objects1);}System.out.println(max);
+}
+六、效果展示
+1、输入
+5
+20 30 40 50 60
+90
+
+2、输出
+90
+
+3、说明
+当充电设备输出20、30、40时，其输出功率总和为90，最接近充电站最大充电输出功率，因此最优元素为90。
 
 public class Main {
     public static void main(String[] args) {
