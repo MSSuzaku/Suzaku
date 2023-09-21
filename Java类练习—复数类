@@ -1,0 +1,110 @@
+package ComplexText;
+
+public class Complex {
+    private double real;//实部
+    private double imaginary;//虚部
+
+    public Complex() {//无参构造
+    }
+
+    public Complex(double real, double imaginary) {//有参构造
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+//getter setter方法
+    public double getReal() {
+        return real;
+    }
+
+    public void setReal(double real) {
+        this.real = real;
+    }
+
+    public double getImaginary() {
+        return imaginary;
+    }
+
+    public void setImaginary(double imaginary) {
+        this.imaginary = imaginary;
+    }
+
+    public Complex add (Complex x, Complex y){//复数的加法
+        return new Complex(x.real + y.real,x.imaginary + y.imaginary);//(a+bi)+(c+di)=(a+c)+(b+d)i
+    }
+
+    public Complex Jian (Complex x, Complex y){//复数的减法
+        return new Complex(x.real + y.real,x.imaginary + y.imaginary);//(a+bi)-(c+di)=(a+c)-(b+d)i
+    }
+
+    public Complex Cheng(Complex x,Complex y){//复数的乘法
+        //(a+bi)*(c+di)=(ac-bd)+(bc+ad)i
+        return new Complex((x.real * y.real - x.imaginary * y.imaginary),(x.imaginary * y.real + x.imaginary * y.imaginary));
+    }
+
+    public void print(){//输出
+        if(this.imaginary<0)
+        {
+            System.out.println(this.real + " " + this.imaginary + "i");
+        }
+        else{
+            System.out.println(this.real + " + " + this.imaginary + "i");
+        }
+    }
+}
+//以上为新建JavaBean
+
+
+package ComplexText;
+
+import java.util.Scanner;
+
+public class Text {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入第一个数的实部");
+        double x = sc.nextDouble();
+        System.out.println("请输入第一个数的虚部");
+        double y = sc.nextDouble();
+        Complex c1 = new Complex(x,y);//复数1
+        System.out.print("c1 = ");
+        c1.print();
+
+        System.out.println("请输入第二个数的实部");
+        double a = sc.nextDouble();
+        System.out.println("请输入第二个数的虚部");
+        double b = sc.nextDouble();
+        Complex c2 = new Complex(a,b);//复数2
+        System.out.print("c2 = ");
+        c2.print();
+
+        /*Complex c3 = new Complex(5,6);//复数3
+        System.out.print("c3 = ");
+        c3.print();
+
+        Complex c4 = new Complex(1.5,2.5);//复数4
+        System.out.print("c4 = ");
+        c4.print();*/
+
+        Complex c5 = new Complex(0,0);//输出用的复数
+
+        System.out.println("计算结果如下：");
+        c5 = c5.add(c1,c2);//相加
+        System.out.print("c1 + c2 = ");
+        c5.print();
+
+        c5 = c5.Jian(c2,c1);//相减
+        System.out.print("c2 - c1 = ");
+        c5.print();
+
+        c5 = c5.Cheng(c1,c2);//相乘
+        System.out.print("c1 * c2 = ");
+        c5.print();
+
+
+
+    }
+}
+
+
+
+
