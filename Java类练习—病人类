@@ -1,0 +1,129 @@
+package PatientText;
+
+public class Patient {
+    private String name;//名字
+    private char sex;//性别
+    private int age;//年龄
+    private double weight;//体重
+    private boolean allergies;//是否过敏
+
+    public Patient() {//无参构造
+    }
+
+    public Patient(String name, char sex, int age, double weight, boolean allergies) {//有参构造
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.weight = weight;
+        this.allergies = allergies;
+    }
+//getter setter 方法
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public boolean isAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(boolean allergies) {
+        this.allergies = allergies;
+    }
+
+    public String toString() {//输出
+        return "Patient{name = " + name + ", sex = " + sex + ", age = " + age + ", weight = " + weight + ", allergies = " + allergies + "}";
+    }
+}
+//以上为新建JavaBean
+
+package PatientText;
+
+import java.util.Scanner;
+
+//测试代码
+public class Text {
+    public static void main(String[] args) {
+        /*Patient p1 = new Patient();
+        Patient p2 = new Patient();//建立两个病人
+
+        p1.setName("沐笙");//第一位病人的信息
+        p1.setSex('男');
+        p1.setAge(20);
+        p1.setWeight(130);
+        p1.setAllergies(true);
+
+        p2.setName("沐秋");//第二位病人的信息
+        p2.setSex('女');
+        p2.setAge(18);
+        p2.setWeight(95);
+        p2.setAllergies(false);\
+        //输出两位病人信息
+        System.out.println(p1.getName());
+        System.out.println(p1.isAllergies());
+
+        System.out.println(p2.getName());
+        System.out.println(p2.isAllergies());
+
+        System.out.println(p1.toString());
+        System.out.println(p2.toString());*/
+
+        Patient p = new Patient();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入姓名");
+        String name = sc.next();
+        p.setName(name);
+
+        System.out.println("请输入性别");
+        String s = sc.next();
+        char sex = s.charAt(0);
+        p.setSex(sex);
+
+        System.out.println("请输入年龄");
+        int age = sc.nextInt();
+        p.setAge(age);
+
+        System.out.println("请输入体重");
+        double weight = sc.nextDouble();
+        p.setWeight(weight);
+
+        System.out.println("是否过敏");
+        boolean allegies = sc.nextBoolean();
+        p.setAllergies(allegies);
+
+        System.out.print("姓名："+name +"  ");
+        System.out.print("性别："+sex +"  ");
+        System.out.print("年龄："+age +"  ");
+        System.out.print("体重："+weight +"  ");
+        System.out.println("是否过敏："+allegies +"  ");
+    }
+}
+
