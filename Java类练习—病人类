@@ -1,3 +1,8 @@
+声明Patient类表示在门诊室中的病人。此类对象应包括name（astring）、sex（achar）、age（aninteger）、weight（afloat）、allergies（a boolean）属性，以及属性对应的存取/修改方法。在一个单独的类中，声明测试方法，并生成两个patient对象，设置其状态将其显示在屏幕上。 声明并测试
+
+toString（）方法显示一个病人的aga、sex、name及allergies属性。
+
+
 package PatientText;
 
 public class Patient {
