@@ -1,3 +1,12 @@
+.完成下面父类及子类的声明
+(1) 声明Student类属性包括学号、姓名、英语成绩、数学成绩、计算机成绩和总成绩.方法包括构造方法、get方法、 set方法、toString方法、equals方法、compare方法（比较两个学生的总成绩,结果分为大于、小于、等于）,sum方法（计算总成绩）和testScore方法（计算评测成绩）.
+注：评测成绩可以取三门课成绩的平均分,另外任何一门课的成绩的改变都需要对总成绩进行重新计算,因此,在每一个set方法中应调用sum方法计算总成绩.
+(2）声明StudentXW(学习委员)类为Student类的子类.
+在StudentXW类中增加责任属性,并重写testScore方法（评测成绩=三门课平均分+3）
+(3）声明StudentBZ类为Student类的子类
+在StudentBZ类中增加责任属性,并重写testScore方法（评测成绩=三门课平均分+5）
+4）声明测试类,生成若干个Student类、StudentXW类及StudentBZ类对象,并分别计算它们的评测成绩(建议采用:写一个测试函数,该函数以父类student数组作为参数) .
+
 package Student;
 
 public class Student {
