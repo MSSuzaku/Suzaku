@@ -1,0 +1,83 @@
+package Square;
+
+public class Rectangle {//设置矩形
+    int longs;//长
+    int wide;//宽
+
+    public Rectangle() {
+    }
+
+    public Rectangle(int longs, int wide) {
+        this.longs = longs;
+        this.wide = wide;
+    }
+    //getter setter方法
+    public int getLongs() {
+        return longs;
+    }
+
+    public void setLongs(int longs) {
+        this.longs = longs;
+    }
+
+    public int getWide() {
+        return wide;
+    }
+
+    public void setWide(int wide) {
+        this.wide = wide;
+    }
+
+    public int area(Rectangle x,Rectangle y)//面积
+    {
+        return longs*wide;
+    }
+    public int ZhouChang(Rectangle x,Rectangle y)//周长
+    {
+        return 2 * (longs + wide);
+    }
+
+    public static class Square extends Rectangle{//设置正方形
+        public int area(Rectangle x,Rectangle y)//面积
+        {
+            return x.longs*y.wide;
+        }
+        public int ZhouChang(Rectangle x,Rectangle y)//周长
+        {
+            return 2 * (x.longs + y.wide);
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+package Square;
+
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args) {
+        Rectangle.Square square = new Rectangle.Square();
+
+        Scanner sc = new Scanner(System.in);
+
+        Rectangle a = new Rectangle();
+        Rectangle b = new Rectangle();
+
+        System.out.println("请输入长：");
+        int longs = sc.nextInt();//长度
+        System.out.println("请输入宽：");
+        int wide = sc.nextInt();//宽度
+
+        a.setLongs(longs);
+        b.setWide(wide);
+
+        /*
+        square.setLongs(2);//设置长
+        square.setWide(3);//设置宽
+        */
+
+        System.out.println("正方形的周长为：" + square.ZhouChang(a, b));//输出周长
+        System.out.println("正方形的面积为：" + square.area(a, b));//输出面积
+
+    }
+}
