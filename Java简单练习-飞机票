@@ -31,7 +31,7 @@ public class Fly {
         System.out.println("机票的价格为：" + ticket);//输出机票价格
 
     }
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
     public static int getPrice(int ticket,int seat,double v0,double v1){//方法
         if(seat == 0){//头等
             ticket = (int)(ticket * v0);
