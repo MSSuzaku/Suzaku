@@ -1,3 +1,5 @@
+)声明并测试一个复数类，可以进行复数加法、减法和乘法运算。要求该复数类至少包含一个无参的构造方法和一个带参的构造方法；数据成员包括复数的实部和虚部，为double类型；其方法包括toString（）及复数数的加、减、乘运算。
+
 package ComplexText;
 
 public class Complex {
