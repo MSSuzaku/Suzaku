@@ -1,0 +1,213 @@
+package Student;
+
+public class Student {
+    public long ID;//学号
+    public String name;//姓名
+    public double English;//英语
+    public double Math;//数学
+    public double Computer;//计算机
+    public double Sum;//总成绩
+
+    public Student() {
+    }
+
+    public Student(long ID, String name, double english, double math, double computer, double sum) {
+        this.ID = ID;
+        this.name = name;
+        English = english;
+        Math = math;
+        Computer = computer;
+        Sum = sum;
+    }
+
+    //getter setter方法
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getEnglish() {
+        return English;
+    }
+
+    public void setEnglish(double English) {
+        this.English = English;
+        Sum = Sum + English;
+    }
+
+    public double getMath() {
+        return Math;
+    }
+
+    public void setMath(double Math) {
+        this.Math = Math;
+        Sum = Sum + Math;
+    }
+
+    public double getComputer() {
+        return Computer;
+    }
+
+    public void setComputer(double Computer) {
+        this.Computer = Computer;
+        Sum = Sum + Computer;
+    }
+
+    public double getSum() {
+        return Sum;
+    }
+
+    public void setSum(double Sum) {
+        this.Sum = Sum;
+    }
+
+    public String tostring(){//tostring方法
+        return "学号：" + ID + " 姓名：" + name + "  英语成绩：" + English + "  数学成绩：" + Math + "  计算机成绩：" + Computer + "  总成绩" + Sum;
+    }
+
+    public double sum(){//总成绩
+        return this.English + this.Math + this.Computer;
+    }
+    public double textscore(){//评测成绩
+        return  Sum/3.0;
+    }
+
+    public Student(long ID, String name) {//设置学生基本信息
+        this.ID = ID;
+        this.name = name;
+    }
+    public void compare(Student s){//比较成绩
+        if(this.sum() > s.sum())
+        {
+            System.out.println(this.name + " 分数大于 " + s.name);
+        }
+        else if (this.sum() == s.sum())
+        {
+            System.out.println(this.name + " 分数等于 " + s.name);
+        }
+        else
+        {
+            System.out.println(this.name + " 分数小于 " + s.name);
+        }
+
+    }
+
+    public void equal(Student x){//判断学号是否相同
+        if(this.ID == x.ID)
+        {
+            System.out.println(this.name + " 与 " + x.name + " 的学号一致");
+        }
+        else
+        {
+            System.out.println(this.name + " 与 " + x.name + " 的学号不一致");
+        }
+    }
+
+
+
+    static class StudentXW extends Student{  //学习委员
+        public StudentXW(){super();}
+        public StudentXW(long ID,String name){
+            this.ID = ID;
+            this.name = name;
+        }
+        public String ZeRen;
+        public String getZeRen(){
+            return ZeRen;
+        }
+        public void setZeRen(String ZeRen){
+            this.ZeRen = ZeRen;
+            System.out.println("班级职务为：" + ZeRen);
+        }
+        public double textscore(){
+            return super.textscore() + 3;//学习委员的责任属性+3分
+        }
+    }
+
+    static class StudentBZ extends Student{  //班长
+        public StudentBZ(){super();}
+        public StudentBZ(long ID,String name){
+            this.ID = ID;
+            this.name = name;
+        }
+        public String ZeRen;
+        public String getZeRen(){
+            return ZeRen;
+        }
+        public void setZeRen(String ZeRen){
+            this.ZeRen = ZeRen;
+            System.out.println("班级职务为：" + ZeRen);
+        }
+        public double textscore(){
+            return super.textscore() + 5;//班长的责任属性+5分
+        }
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Student;
+
+import java.util.Scanner;
+
+public class main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入学号：");
+        long a1 = sc.nextLong();
+        System.out.println("请输入姓名：");
+        String b1 = sc.next();
+        Student s1=new Student(a1,b1);
+        System.out.println("请输入英语成绩：");
+        double English1 = sc.nextDouble();
+        s1.setEnglish(English1);
+        System.out.println("请输入数学成绩：");
+        double Math1 = sc.nextDouble();
+        s1.setMath(Math1);
+        System.out.println("请输入计算机成绩：");
+        double Computer1 = sc.nextDouble();
+        s1.setComputer(Computer1);
+        System.out.println(s1.name+"的各项信息如下 ：");
+        System.out.println(s1.tostring());
+        System.out.println(s1.name+"的测试成绩为：");
+        System.out.println(s1.textscore());
+
+        Student.StudentXW s2=new Student.StudentXW(221180407,"刘酉航");
+        s2.setEnglish(80.00);
+        s2.setMath(70.00);
+        s2.setComputer(70.00);
+        System.out.println(s2.name+"的各项信息如下 ：");
+        System.out.println(s2.tostring());
+        s2.setZeRen("学习委员");
+        System.out.println(s2.name+"的测试成绩为："+s2.textscore());
+
+        Student.StudentBZ s3 =new Student.StudentBZ(221110076,"邵正东");
+        s3.setEnglish(88.00);
+        s3.setMath(77.00);
+        s3.setComputer(66.00);
+        System.out.println(s3.name+"的各项信息如下 ：");
+        System.out.println(s3.tostring());
+        s3.setZeRen("班长");
+        System.out.println(s3.name+"的测试成绩为："+s3.textscore());
+
+        s1.compare(s2);
+        s2.compare(s3);
+        s1.compare(s3);
+
+        s1.equal(s2);
+        s2.equal(s3);
+        s3.equal(s1);
+
+    }
+}
