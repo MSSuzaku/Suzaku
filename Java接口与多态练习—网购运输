@@ -1,0 +1,207 @@
+网购已成为人们生活的重要组成部分，当人们在购物网站中下订单后，订单中的货物就会在经过一系列的流程后，送到客户的手中。而在送货期间，物流管理人员可以在系统中查看所有物品的物流信息。编写一个模拟物流快递系统的程序，模拟后台系统处理货物的过程。
+
+（1）运输货物首先需要有交通工具，所以需要定义一个交通工具类。由于交通工具可能有很多，所以可以将该交通工具类(Transportation)定义成一个抽象类，类中需要包含该交通工具的编号(number)，型号(model)以及运货负责人(admin)等属性，还需要定义一个抽象的运输方法(transport)。
+
+（2）当运输完成后，需要对交通工具进行保养，所以需要定义保养(Careable)接口，具备交通工具的保养(upkeep)功能。
+
+（3）交通工具可能有很多种，这里可以定义一个专用运输车类(Ztransportation)，该类需要继承交通工具类，并实现保养接口。
+
+（4）有了运输的交通工具后，就可以开始运送货物了。货物在运输前，运输时和运输后，都需要检查和记录，并且每一个快递都有快递单号，这时可以定义一个快递任务类(SendTask)包含快递单号和货物重量的属性，以及送前(sendBefore)、发送货物途中(send)和送后(sendAfter)的方法。
+
+（5）在货物运输过程中，需要对运输车辆定位，以便随时跟踪货物的位置信息。定位功能可以使用GPS，而考虑到能够实现定位功能的设备可能有很多（如手机、专用定位仪器等），这时可以定义一个包含定位(showCoordinate)功能的GPS接口，以及实现了该接口的仪器类（如Phone等）。
+
+（6）编写测试类，运行查看结果。
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+
+//交通工具类
+public abstract class Transportation {
+    private String number;//编号
+    private String model;//型号
+    private String admin;//货运人
+
+    public abstract void transport();//定义一个抽象的运输方法
+
+    public Transportation() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public Transportation(String number, String model, String admin) {
+        super();
+        this.number = number;
+        this.model = model;
+        this.admin = admin;
+    }
+
+    public String getNumber() {
+
+        return number;
+    }
+
+    public void setNumber(String number) {
+
+        this.number = number;
+    }
+
+    public String getModel() {
+
+        return model;
+    }
+
+    public void setModel(String model) {
+
+        this.model = model;
+    }
+
+    public String getAdmin() {
+
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+
+        this.admin = admin;
+    }
+
+
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+
+//专用运输车类
+public class Ztransportation extends Transportation implements Careable{
+    public  Ztransportation() {
+        super();
+    }
+    public Ztransportation(String number, String model, String admin) {
+        super(number, model, admin);
+    }
+    public void upKeep() {
+        //实现保养接口
+        System.out.println("=============================");
+        System.out.println("运货完毕，运输车进入保养场地。。。。");
+        System.out.println("货物运输车已保养完毕！");
+    }
+    public void transport(){
+        System.out.println("货物正在运送中......");
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+
+//快递任务类
+public class SendTask {
+    private String taskID;//快递单号
+    private double weight;//快递重量
+
+    public SendTask() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public SendTask(String taskID, double weight) {
+        super();
+        this.taskID = taskID;
+        this.weight = weight;
+    }
+
+    public String getTaskNo() {
+        return taskID;
+    }
+
+    public void setTaskNo(String taskNo) {
+        this.taskID = taskNo;
+    }
+
+    public double getWeight()
+    {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void sendBefore() {
+        //送前
+        System.out.println("仓库验货中...");
+        System.out.println("货物重量：" + this.weight + "kg");
+        System.out.println("快递单号：" + this.taskID);
+    }
+
+    public void send(Transportation t, GPS tool) {
+        //发送货物途中
+        System.out.println("货物已交给快递员！");
+        System.out.println("运货人：" + t.getAdmin());
+        System.out.println("车型：" + t.getModel() + "，车辆编号：" + t.getNumber());
+        System.out.print("运输状况：");
+        t.transport();
+        String showCoordinate = tool.showCoordinate();
+        System.out.println("坐标：" + tool.showCoordinate());
+    }
+
+    public void sendAfter(Transportation t) {
+        //送后
+        System.out.println("货物运送结束...");
+        System.out.println("运货人：" + t.getAdmin());
+        System.out.println("车型：" + t.getModel() + "，车辆编号：" + t.getNumber());
+        System.out.println("运输状况：运输完成！注意及时查收。");
+
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+
+//实现GPS接口的仪器类
+public class Phone implements GPS {
+
+    public Phone() {
+        super();
+    }
+
+    public String showCoordinate() {
+        String location = "192°54‘,23°5’";
+        return location;
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+//GPS接口
+public interface GPS {
+    String showCoordinate();//定位
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+//保养接口
+public interface Careable {
+    public abstract void upKeep();//交通工具保养
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Transportation;
+
+public class Text {
+    public static void main(String[] args) {
+        SendTask task = new SendTask("MS123456",580);
+        Ztransportation t = new Ztransportation("粤M 20212","五菱宏光","沐笙");
+        Phone p = new Phone();
+
+        //调用送货前
+        task.sendBefore();
+        System.out.println("=============================");
+        //调用送货中
+
+        task.send(t,p);
+        System.out.println("=============================");
+        //调用送货后
+        task.sendAfter(t);
+        t.upKeep();
+    }
+}
