@@ -1,0 +1,151 @@
+package Up132;
+
+//动物类
+public class Animal {
+    private int age;//年龄
+    private String color;//颜色
+
+    public Animal() {
+    }
+
+    public Animal(int age, String color) {
+        this.age = age;
+        this.color = color;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void eat(String something){
+        //吃东西
+        System.out.println("动物在吃" + something);
+    }
+
+}
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Up132;
+
+//猫猫类
+public class Cat extends Animal{
+    public Cat() {
+    }
+
+    public Cat(int age, String color) {
+        super(age, color);
+    }
+
+    @Override
+    public void eat(String something) {
+        System.out.println(getAge() + "岁的" + getColor() + "颜色的猫猫眯着眼睛侧着头吃" + something);
+    }
+     public void catchMouse(){
+         System.out.println("猫捉老鼠");
+     }
+}
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Up132;
+
+//狗狗类
+public class Dog extends Animal{
+    public Dog() {
+    }
+
+    public Dog(int age, String color) {
+        super(age, color);
+    }
+
+    @Override
+    public void eat(String something) {
+        System.out.println( getAge() + "岁的" + getColor() + "颜色的狗两只前腿死死的抱住" + something + "猛吃");
+    }
+    public void lookHome(){
+        System.out.println("狗在看家");
+    }
+}
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Up132;
+
+//饲养员类
+public class Person {
+    private String name;
+    private int age;
+
+    public Person() {
+    }
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void keepPet(Dog dog, String something) {
+        //饲养狗
+        System.out.println("年龄为" + age + "岁的" + name + "养了一只" + dog.getColor() + "颜色的" + dog.getAge() + "岁的狗");
+        dog.eat(something);
+    }
+
+    public void keepPet(Cat cat, String something) {
+        //饲养猫
+        System.out.println("年龄为" + age + "岁的" + name + "养了一只" + cat.getColor() + "颜色的" + cat.getAge() + "岁的猫");
+        cat.eat(something);
+    }
+
+    /*public void keepPet(Animal a, String something) {
+        if (a instanceof Dog d) {
+            System.out.println("年龄为" + age + "岁的" + name + "养了一只" + a.getColor() + "颜色的" + a.getAge() + "岁的狗");
+            a.eat(something);
+        }
+        if (a instanceof Cat c) {
+            System.out.println("年龄为" + age + "岁的" + name + "养了一只" + a.getColor() + "颜色的" + a.getAge() + "岁的动物");
+            a.eat(something);
+        }
+    }*/
+}
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Up132;
+
+//测试类
+public class Text {
+    public static void main(String[] args) {
+        Person p1 = new Person("老王",30);
+        Dog d = new Dog(2,"黑");
+        p1.keepPet(d,"骨头");
+
+        Person p2 = new Person("老李",25);
+        Cat c = new Cat(3,"灰");
+        p2.keepPet(c,"鱼");
+
+
+    }
+}
