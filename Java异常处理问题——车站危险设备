@@ -1,3 +1,12 @@
+1.车站都配备有检查危险品的设备，如果发现危险品会发出警告。编程模拟设备发现危险品。
+
+( 1 )编写一个Exception的子类DangerException, 该子类可以创建异常对象，该异常对象调用toShow方法输出: "属于危险品”。
+
+(2)编写-个Machine类，该类的方法checkBag(Goods goods)当发现参数goods是危险品时( goods的isDanger属性是true )将抛出DangerException异常。
+
+(3) 程序在主类的main 方法中的try -catch语句的try 部分让Machine类的实例调用checkBag(Goods gox方法，如果发现危险品，就在try cach语句的catch部分处理危险品。
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 package Danger;
 
 //定义一个异常子类
@@ -14,3 +23,89 @@ public class DangerException extends  Exception{
         return message;
     }
 }
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Danger;
+
+//定义设备类
+public class Goods {
+    String name;//设备名称
+    boolean isDanger;//设备是否危险，危险则为true
+    Goods(String name){//构造函数，并初始化商品名
+
+        this.name = name;
+
+    }
+
+    boolean isDanger()
+    {
+        return isDanger;
+    }
+
+    void SetDanger(boolean TorF)
+    {
+        isDanger = TorF;
+    }
+
+    String GetName()
+    {
+        return name;
+    }
+    void SetName(String s)
+    {
+        name = s;
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Danger;
+
+//定义机器类
+public class Machine {
+    void checkBag(Goods goods) throws DangerException
+    {
+        if(goods.isDanger())//判断是否是危险物品
+        {
+            throw new DangerException(goods.name);//抛出异常
+        }
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Danger;
+
+import java.util.Scanner;
+
+//定义主类Main
+public class Test {
+
+    public static void main(String args[]) {
+
+        Machine machine = new Machine();//声明一个机器对象
+
+        String wp = null;
+        boolean wx;
+        System.out.println("请输入物品名：(输入exit退出）");
+        Scanner sc = new Scanner(System.in);
+        Goods goods = null;
+        while ( ( wp=sc.nextLine())!=null) {
+            try {
+                if (wp.equals("exit")) break;//若输入exit，则退出程序
+                goods = new Goods(wp);
+                System.out.println("输入商品危险度（true为危险，false为安全）");
+                wx = sc.nextBoolean();//接受输入的危险度
+                sc.nextLine();
+                goods.SetDanger(wx);
+                machine.checkBag(goods);//判断是否异常（危险）
+                System.out.println(goods.GetName() + "属于安全品,检查通过!");//安全
+                System.out.println("请输入物品名:(输入exit退出）");
+            } catch (DangerException ex) {
+                System.out.println(goods.GetName() + "" + ex.toShow() + "，检查不通过");//危险
+                System.out.println("请输入物品名:（输入exit退出）");
+            }
+            wx=false;
+        }
+    }
+}
+
+
