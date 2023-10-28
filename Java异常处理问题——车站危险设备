@@ -1,0 +1,16 @@
+package Danger;
+
+//定义一个异常子类
+public class DangerException extends  Exception{
+    String message;
+    DangerException(String n)
+    {
+        message = n+ "属于危险品";//在检测是危险品时，将危险品组成输出语句
+    }
+
+    //异常对象调用toshow方法输出
+    String toShow()
+    {
+        return message;
+    }
+}
