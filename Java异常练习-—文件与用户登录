@@ -1,0 +1,126 @@
+2.创建一用户登录类（类中属性包括用户名、密码、角色等），创建若干该类的对象并保存在文件user.txt中（密码可简单加密），
+登陆时，如果用户名和密码不是从文件user.txt里的用户名和密码，或者文件user.txt不存在或读取的对象为空，则显示登录异常信息！
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package User;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class FileOP {
+    public static void main(String[] args) throws IOException {
+        File  f=new File("D:\\user.txt");//新建文本
+        String user,pwd,r;//建立用户名，密码
+        FileWriter writer= null;
+        LoginCheck check=new LoginCheck();
+        writer = new FileWriter(f);
+        Scanner sc=new Scanner(System.in);
+        Login l=new Login();
+        System.out.println("请输入用户名");
+        l.setUsername(sc.nextLine());//存入用户名
+        System.out.println("请输入密码");
+        l.setPassword(sc.nextLine());//存入密码
+        System.out.println("请输入角色");
+        l.setRole(sc.nextLine());//存入角色
+        try {
+            //捕捉异常
+            writer.write(l.username+"\n");
+            writer.write(l.password+"\n");
+            writer.write(l.role);
+            writer.close();
+            BufferedReader in=new BufferedReader(new FileReader(f));
+            user=in.readLine();
+            pwd=in.readLine();
+            r=in.readLine();
+            in.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //用户登录
+        System.out.println("请输入你要登录的用户名");
+        l.setUsername(sc.nextLine());
+        System.out.println("请输入你要登录密码");
+        l.setPassword(sc.nextLine());
+        try {
+            if(user.equals(l.username)&&pwd.equals(l.password))//如果数据正确，登录成功
+            {
+                System.out.println("用户名和密码正确，登录成功");
+            }
+            else {
+                l.setLogin(false);//如果数据错误，登录失败
+                check.checkLogin(l);
+            }
+        } catch (LoginException p) {
+            System.out.println(p.toshow());
+        }
+
+
+    }
+}
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package User;
+
+//登录方法
+public class Login {
+
+    String username,password,role;//新建用户名，密码，角色
+
+    Boolean isLogin;
+    public boolean isLogin() //判断商品是否危险的方法
+    {
+        return this.isLogin;
+    }
+
+    public void setLogin(Boolean login) {
+        isLogin = login;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
+}
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package User;
+
+//检查危险的方法
+public class LoginCheck {
+    public void checkLogin(Login login) throws  LoginException {//检查商品是否危险，如果是危险的话就抛出异常，提示是危险物品
+        if(!login.isLogin) {
+            LoginException islogin = new LoginException();
+            throw(islogin);
+        }
+
+    }
+}
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package User;
+
+//新建登录异常子类
+public class LoginException extends Exception{
+    public String toshow() {//如果抛出异常就输出这个方法
+
+        return "用户名和密码不正确，登录失败！";
+
+    }
+}
+
+
