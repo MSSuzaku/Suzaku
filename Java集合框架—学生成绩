@@ -1,0 +1,131 @@
+3、完成以下实验： (1) 定义一个学生类：属性有学号、姓名、专业、高数成绩、外语成绩、Java课程成绩。 
+(2) 在测试类中生成多个学生类的对象，放入TreeSet中，要求按照三门课总成绩从高到低排序，总成绩相等按学号排序输出排序结果。 
+（注意：实现Comparator接口的compare(Object obj1,Object obj2)函数）
+
+package StudentText;
+
+import java.util.Comparator;
+
+//比较两个学生的成绩
+class ScoreComparator implements Comparator<Student> {
+    @Override
+    public int compare(Student s1, Student s2) {
+        int totalScore1 = s1.getMathScore() + s1.getEnglishScore() + s1.getJavaScore();  //要比较的第一个学生
+        int totalScore2 = s2.getMathScore() + s2.getEnglishScore() + s2.getJavaScore();  //要比较的第二个学生
+
+        if (totalScore1 != totalScore2) {
+            return Integer.compare(totalScore2, totalScore1); // 按总成绩从高到低排序
+        } else {
+            return s1.getStuNo().compareTo(s2.getStuNo()); // 总成绩相等时按学号排序
+        }
+    }
+}
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package StudentText;
+
+//定义学生类
+class Student {
+    private String stuNo;//学号
+    private String name;//姓名
+    private String major;//专业
+    private int mathScore;//数学成绩
+    private int englishScore;//英语成绩
+    private int javaScore;//Java成绩
+
+    public Student(String stuNo, String name, String major, int mathScore, int englishScore, int javaScore) {
+        this.stuNo = stuNo;
+        this.name = name;
+        this.major = major;
+        this.mathScore = mathScore;
+        this.englishScore = englishScore;
+        this.javaScore = javaScore;
+    }
+
+    public String getStuNo() {
+        return stuNo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public int getMathScore() {
+        return mathScore;
+    }
+
+    public int getEnglishScore() {
+        return englishScore;
+    }
+
+    public int getJavaScore() {
+        return javaScore;
+    }
+
+    //返回包含Student类属性的字符串表示形式。
+    @Override
+    public String toString() {
+        return "Student{" +
+                "stuNo='" + stuNo + '\'' +
+                ", name='" + name + '\'' +
+                ", major='" + major + '\'' +
+                ", mathScore=" + mathScore +
+                ", englishScore=" + englishScore +
+                ", javaScore=" + javaScore +
+                '}';
+    }
+}
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package StudentText;
+
+import java.util.Scanner;
+import java.util.TreeSet;
+
+//测试函数
+public class Text {
+    public static void main(String[] args) {
+        TreeSet<Student> studentSet = new TreeSet<>(new ScoreComparator());
+        Scanner = new Scanner(System.in);
+
+        //总学生数量
+        System.out.print("请输入学生数量：");
+        int count = scanner.nextInt();
+        scanner.nextLine(); // 读取换行符
+
+        //录入学生信息
+        for (int i = 0; i < count; i++) {
+            System.out.println("请输入第 " + (i + 1) + " 个学生的信息：");
+            System.out.print("请输入学号：");
+            String stuNo = scanner.nextLine();
+
+            System.out.print("请输入姓名：");
+            String name = scanner.nextLine();
+
+            System.out.print("请输入专业：");
+            String major = scanner.nextLine();
+
+            System.out.print("请输入高数成绩：");
+            int mathScore = scanner.nextInt();
+
+            System.out.print("请输入外语成绩：");
+            int englishScore = scanner.nextInt();
+
+            System.out.print("请输入Java课程成绩：");
+            int javaScore = scanner.nextInt();
+            scanner.nextLine(); // 读取换行符
+
+            Student = new Student(stuNo, name, major, mathScore, englishScore, javaScore);
+            studentSet.add(student);  //将学生信息放入集合中
+        }
+
+        //排序
+        System.out.println("按照三门课总成绩从高到低排序，总成绩相等按学号排序的结果：");
+        for (Student : studentSet) {
+            System.out.println(student);
+        }
+    }
+}
