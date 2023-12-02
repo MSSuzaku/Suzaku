@@ -1,0 +1,37 @@
+//产生100个100~200之间的随机数，并保存到ArrayList中，求上述ArrayList中的平均值，删除上述ArrayList中大于平均值的数，并输出ArrayList中剩余的数。
+package Count;
+
+import java.util.ArrayList;
+public class Count{
+    public static void main(String[] args)
+    {   int j=0;   //定义一个换行用的数，计算输出的数字数
+        ArrayList<Integer>list=new ArrayList<Integer>();//创建了一个ArrayList对象list
+        for(int i=0 ; i<100 ; i++){
+            int a=100 + (int)(Math.random() * 101);
+            list.add(a);  //生成一个范围在100到200之间的随机整数，并将其赋值给变量a。
+            j++;          //计算数字加一
+            if((j + 1) % 10 == 0)  //每10个换一行
+                System.out.println();
+            System.out.print(a + " ");  //输出随机数
+        }
+        System.out.println();
+
+        int sum=0;
+        for (int a : list){
+            sum +=a;
+        }
+        double avg=sum/list.size();
+        System.out.println("平均值为：" + avg);  //计算平均值
+
+        for(int i=list.size()-1 ; i>=0 ; i--)
+        {   if(list.get(i) > avg)
+            list.remove(list.get(i));
+        }  //移除大于平均值的数
+
+        for (int a : list) {
+            if (j++ % 10 == 0) 
+                System.out.println();   //每10个换一行
+            System.out.print(a + " ");  //输出结果
+        }
+    }
+}
