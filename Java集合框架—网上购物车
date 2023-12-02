@@ -1,0 +1,49 @@
+//2、用HashMap模拟一个网上购物车。要求：从键盘输入n本书的名称、单价、购买数量，
+//将这些信息存入一个HashMap，然后将该HashMap作为参数调用方法getSum（HashMap books），该方法用于计算书的总价并返回。【说明：键盘输入可使用Scanner类】
+
+package BookShop;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+//书本
+class Books
+{ String name;  //书本名
+    double price;  //书本价格
+    int number;  //书本数量
+}
+
+//总价
+public class bookshop {
+    static double getSum(HashMap<Integer, Books> b)  //计算所有Books对象的总价值
+    {   double s = 0;
+        for(int i = 0 ; i<b.size() ; i++)
+            s += (b.get(i).price * b.get(i).number);//单价 * 数量
+        return s;
+    }
+
+//总函数
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner sc=new Scanner(System.in);
+        HashMap<Integer, Books> m = new HashMap<Integer, Books>(); //创建一个新的对象
+        System.out.print("请输入书籍数量:");
+        int n = sc.nextInt(); //键盘录入书籍总数
+
+        for(int i = 0 ; i<n ; i++)
+        {	Books books=new Books();
+            System.out.println("请输入第 " + (i+1) + " 本书的名称:");
+            books.name=sc.next(); //输入书籍的名称
+
+            System.out.print("请输入第 " + (i+1) + " 本书的价格:");
+            books.price=sc.nextDouble(); //输入书籍的价格
+
+            System.out.print("请输入第 " + (i+1) + " 本书的购买数量:");
+            books.number=sc.nextInt(); //输入书籍的数量
+            m.put(i, books);
+        }
+
+        double s=getSum(m);
+        System.out.print("这些书一共:"+s + "元");//计算总价并输出
+    }
+}
