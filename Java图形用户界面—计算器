@@ -1,0 +1,464 @@
+//使用JFormDesigner插件
+/*
+ * Created by JFormDesigner on Thu Dec 14 17:05:16 HKT 2023
+ */
+
+package Calculator;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * @author Suzaku
+ */
+
+public class Calculator extends JFrame implements ActionListener {
+
+    public static void main(String[] args) {
+        Calculator calculator02=new Calculator();
+        calculator02.setVisible(true);
+        //按下“关闭”按钮后，窗体关闭且程序停止执行
+        calculator02.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    //    构造方法
+    public Calculator() {
+        initComponents();
+    }
+
+    //    计算器上的按钮
+    private void initComponents() {
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
+        //======== this ========
+        setFont(new Font(Font.DIALOG, Font.PLAIN, 10));
+        Container contentPane = getContentPane();
+
+        //设置窗口标题
+        this.setTitle("计算器");
+        //---- button1 ----
+//        设置按钮的文本
+        button1.setText("%");
+//        设置按钮的字体
+        button1.setFont(button1.getFont().deriveFont(button1.getFont().getStyle() & ~Font.ITALIC, button1.getFont().getSize() + 6f));
+//        将按钮加入到事件监听器
+        button1.addActionListener(this);
+        //自定义按钮背景颜色
+        button1.setBackground(new Color(140,179,217));
+
+        //---- button2 ----
+        button2.setText("CE");
+        button2.setFont(button2.getFont().deriveFont(button2.getFont().getStyle() & ~Font.ITALIC, button2.getFont().getSize() + 6f));
+        button2.addActionListener(this);
+        button2.setBackground(new Color(140,179,217));
+
+        //---- button3 ----
+        button3.setText("C");
+        button3.setFont(button3.getFont().deriveFont(button3.getFont().getStyle() & ~Font.ITALIC, button3.getFont().getSize() + 6f));
+        button3.addActionListener(this);
+        button3.setBackground(new Color(140,179,217));
+
+        //---- button4 ----
+        button4.setText("Backspace");
+        button4.setFont(button4.getFont().deriveFont(button4.getFont().getStyle() & ~Font.ITALIC, button4.getFont().getSize() + 6f));
+        button4.addActionListener(this);
+        button4.setBackground(new Color(140,179,217));
+
+        //---- button5 ----
+        button5.setText("1/X");
+        button5.setFont(button5.getFont().deriveFont(button5.getFont().getStyle() & ~Font.ITALIC, button5.getFont().getSize() + 6f));
+        button5.addActionListener(this);
+        button5.setBackground(new Color(140,179,217));
+
+        //---- button6 ----
+        button6.setText("Sqrt");
+        button6.setFont(button6.getFont().deriveFont(button6.getFont().getStyle() & ~Font.ITALIC, button6.getFont().getSize() + 6f));
+        button6.addActionListener(this);
+        button6.setBackground(new Color(140,179,217));
+
+        //---- button7 ----
+        button7.setFont(button7.getFont().deriveFont(button7.getFont().getStyle() & ~Font.ITALIC, button7.getFont().getSize() + 6f));
+        button7.setText("Square");
+        button7.addActionListener(this);
+        button7.setBackground(new Color(140,179,217));
+
+        //---- button8 ----
+        button8.setText("/");
+        button8.setFont(button8.getFont().deriveFont(button8.getFont().getStyle() & ~Font.ITALIC, button8.getFont().getSize() + 6f));
+        button8.addActionListener(this);
+        button8.setBackground(new Color(140,179,217));
+
+        //---- button9 ----
+        button9.setText("7");
+        button9.setFont(button9.getFont().deriveFont(button9.getFont().getStyle() & ~Font.ITALIC, button9.getFont().getSize() + 6f));
+        button9.addActionListener(this);
+        button9.setBackground(new Color(140,179,217));
+
+        //---- button10 ----
+        button10.setText("8");
+        button10.setFont(button10.getFont().deriveFont(button10.getFont().getStyle() & ~Font.ITALIC, button10.getFont().getSize() + 6f));
+        button10.addActionListener(this);
+        button10.setBackground(new Color(140,179,217));
+
+        //---- button11 ----
+        button11.setText("9");
+        button11.setFont(button11.getFont().deriveFont(button11.getFont().getStyle() & ~Font.ITALIC, button11.getFont().getSize() + 6f));
+        button11.addActionListener(this);
+        button11.setBackground(new Color(140,179,217));
+        //---- button12 ----
+        button12.setText("*");
+        button12.setFont(button12.getFont().deriveFont(button12.getFont().getStyle() & ~Font.ITALIC, button12.getFont().getSize() + 6f));
+        button12.addActionListener(this);
+        button12.setBackground(new Color(140,179,217));
+
+        //---- button13 ----
+        button13.setText("4");
+        button13.setFont(button13.getFont().deriveFont(button13.getFont().getStyle() & ~Font.ITALIC, button13.getFont().getSize() + 6f));
+        button13.addActionListener(this);
+        button13.setBackground(new Color(140,179,217));
+
+        //---- button14 ----
+        button14.setText("5");
+        button14.setFont(button14.getFont().deriveFont(button14.getFont().getStyle() & ~Font.ITALIC, button14.getFont().getSize() + 6f));
+        button14.addActionListener(this);
+        button14.setBackground(new Color(140,179,217));
+
+        //---- button15 ----
+        button15.setText("6");
+        button15.setFont(button15.getFont().deriveFont(button15.getFont().getStyle() & ~Font.ITALIC, button15.getFont().getSize() + 6f));
+        button15.addActionListener(this);
+        button15.setBackground(new Color(140,179,217));
+
+        //---- button16 ----
+        button16.setText("-");
+        button16.setFont(button16.getFont().deriveFont(button16.getFont().getStyle() & ~Font.ITALIC, button16.getFont().getSize() + 6f));
+        button16.addActionListener(this);
+        button16.setBackground(new Color(140,179,217));
+
+        //---- button17 ----
+        button17.setText("1");
+        button17.setFont(button17.getFont().deriveFont(button17.getFont().getStyle() & ~Font.ITALIC, button17.getFont().getSize() + 6f));
+        button17.addActionListener(this);
+        button17.setBackground(new Color(140,179,217));
+
+        //---- button18 ----
+        button18.setText("2");
+        button18.setFont(button18.getFont().deriveFont(button18.getFont().getStyle() & ~Font.ITALIC, button18.getFont().getSize() + 6f));
+        button18.addActionListener(this);
+        button18.setBackground(new Color(140,179,217));
+
+        //---- button19 ----
+        button19.setText("3");
+        button19.setFont(button19.getFont().deriveFont(button19.getFont().getStyle() & ~Font.ITALIC, button19.getFont().getSize() + 6f));
+        button19.addActionListener(this);
+        button19.setBackground(new Color(140,179,217));
+
+        //---- button20 ----
+        button20.setText("+");
+        button20.setFont(button20.getFont().deriveFont(button20.getFont().getStyle() & ~Font.ITALIC, button20.getFont().getSize() + 6f));
+        button20.addActionListener(this);
+        button20.setBackground(new Color(140,179,217));
+
+        //---- button21 ----
+        button21.setText("+/-");
+        button21.setFont(button21.getFont().deriveFont(button21.getFont().getStyle() & ~Font.ITALIC, button21.getFont().getSize() + 6f));
+        button21.addActionListener(this);
+        button21.setBackground(new Color(140,179,217));
+
+        //---- button22 ----
+        button22.setText("0");
+        button22.setFont(button22.getFont().deriveFont(button22.getFont().getStyle() & ~Font.ITALIC, button22.getFont().getSize() + 6f));
+        button22.addActionListener(this);
+        button22.setBackground(new Color(140,179,217));
+
+        //---- button23 ----
+        button23.setText(".");
+        button23.setFont(button23.getFont().deriveFont(button23.getFont().getStyle() & ~Font.ITALIC, button23.getFont().getSize() + 6f));
+        button23.addActionListener(this);
+        button23.setBackground(new Color(140,179,217));
+
+        //---- button24 ----
+        button24.setText("=");
+        button24.setFont(button24.getFont().deriveFont(button24.getFont().getStyle() & ~Font.ITALIC, button24.getFont().getSize() + 6f));
+        button24.addActionListener(this);
+        button24.setBackground(new Color(140,179,217));
+
+        //---- textField1 ----
+        textField1.setFont(textField1.getFont().deriveFont(textField1.getFont().getSize() + 15f));
+        textField1.setText("0");
+        textField1.setHorizontalAlignment(JTextField.RIGHT);
+
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addComponent(button1, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(button2, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(button3, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(button4, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addComponent(button5, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(button6, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(button7, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(button8, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGroup(contentPaneLayout.createParallelGroup()
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(button21, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button22, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button23, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button24, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(button9, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button10, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button11, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button12, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(button13, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button14, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button15, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button16, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(button17, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button18, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button19, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(button20, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(textField1))
+                                .addContainerGap())
+        );
+        contentPaneLayout.setVerticalGroup(
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button2, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button5, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button6, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button7, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button8, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button9, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button10, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button11, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button12, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button13, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button14, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button15, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button16, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button17, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button18, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button19, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button20, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(button21, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button22, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button23, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(button24, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pack();
+        setLocationRelativeTo(getOwner());
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+    }
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+    private JButton button1 = new JButton();
+    private JButton button2 = new JButton();
+    private JButton button3 = new JButton();
+    private JButton button4 = new JButton();
+    private JButton button5 = new JButton();
+    private JButton button6 = new JButton();
+    private JButton button7 = new JButton();
+    private JButton button8 = new JButton();
+    private JButton button9 = new JButton();
+    private JButton button10 = new JButton();
+    private JButton button11 = new JButton();
+    private JButton button12 = new JButton();
+    private JButton button13 = new JButton();
+    private JButton button14 = new JButton();
+    private JButton button15 = new JButton();
+    private JButton button16 = new JButton();
+    private JButton button17 = new JButton();
+    private JButton button18 = new JButton();
+    private JButton button19 = new JButton();
+    private JButton button20 = new JButton();
+    private JButton button21 = new JButton();
+    private JButton button22 = new JButton();
+    private JButton button23 = new JButton();
+    private JButton button24 = new JButton();
+    private JTextField textField1 = new JTextField();
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+//    获取事件源的标签
+        String eventTab = e.getActionCommand();
+        if(eventTab.equals("Backspace")){
+            //如果按下Backspace按钮，调用Backspace事件对应的处理方法
+            Backspace();
+        }else if(eventTab.equals("CE")) {
+            //如果按下CE按钮，清空文本框，保留之前输入的字符
+            textField1.setText("");
+        }else if(eventTab.equals("C")) {
+            //如果按下C按钮，调用C按钮事件处理方法
+            CProcess();
+        }else if(".1234567890".indexOf(eventTab)>=0) {
+            //如果按下数字或小数点按钮，调用C按钮事件处理方法
+            DigitalProcess(eventTab);
+        }else {
+            //如果按下运算符按钮,调用运算符事件对应的处理方法
+            OperatorProcess(eventTab);
+        }
+    }
+
+    /*获取文本框当中的数字*/
+    private double getNumber(){
+        //返回的均为小数
+        double number=0;
+        /*文本框中的数字可能不规范*/
+        try{
+            /*将文本框中的字符串转换为double对象，再调用该double对象的方法返回对应的double数值*/
+            number=Double.valueOf(textField1.getText()).doubleValue();
+        }catch (NumberFormatException e){
+
+        }
+        return number;
+    }
+
+    //用户当前按下的运算符
+    private String userOperater="=";
+    //每次的运算结果，当前运算符号前面的数
+    private double Result=0.0;
+    //操作是否合法
+    private boolean OperationIsLegal=true;
+    //当前输入的是否为第一个数
+    private boolean IsFirstNum=true;
+    //运算符事件处理
+    private void OperatorProcess(String Operator){
+        if(userOperater.equals("+")){
+            //加法运算处理
+            Result+=getNumber();
+        }else if(userOperater.equals("-")){
+            //减法运算处理
+            Result-=getNumber();
+        }else if(userOperater.equals("*")){
+            //乘法运算处理
+            Result*=getNumber();
+        }else if(userOperater.equals("/")){
+            //除法运算处理
+            //首先判断当前操作是否合法，除数为零即不合法
+            if(getNumber()==0.0){
+                OperationIsLegal=false;
+                textField1.setText("操作不合法，除数不能为零！");
+            }else{
+                Result/=getNumber();
+            }
+        }else if(userOperater.equals("Sqrt")){
+            //平方根运算
+            Result=Math.sqrt(getNumber());
+        }else if(userOperater.equals("Square")){
+            //平方运算
+            Result=Math.pow(getNumber(),2);
+        }else if(userOperater.equals("1/X")){
+            //求倒运算
+            if(Result==0.0){
+                OperationIsLegal=false;
+                textField1.setText("操作不合法，零没有倒数！");
+            }else{
+                Result=1/getNumber();
+            }
+        }else if(userOperater.equals("%")){
+            //模100运算
+            Result=getNumber()/100;
+        }else if(userOperater.equals("+/-")){
+            //取反运算
+            Result=-getNumber();
+        }else if(userOperater.equals("=")){
+            //结果显示
+            Result=getNumber();
+        }
+        if (OperationIsLegal) {
+            //如果用户输入的是整数则需要返回整数，Result本身是浮点数
+            if (Result - (int) Result == 0) {
+                textField1.setText(String.valueOf((int) Result));
+            } else {
+                textField1.setText(String.valueOf(Result));
+            }
+        }
+        //用户每按一次运算符号就将先前的所有已经输入的数据运算一次，
+        // 并且更新当前运算符号，只有按下=号才会将最终计算结果进行输出
+        userOperater=Operator;
+        IsFirstNum=true;
+        OperationIsLegal=true;
+    }
+    //数字按钮事件
+    private void DigitalProcess(String Digital){
+        if(IsFirstNum){
+            //如果输入的是第一个数字，就直接将该数字展示在文本框中，无需计算
+            textField1.setText(Digital);
+        }else if(!Digital.equals(".")){
+            //如果输入的是数字就将其追加在上一个输入的数字后面
+            textField1.setText(textField1.getText()+Digital);
+        }else if(Digital.equals(".")&&textField1.getText().indexOf(".")<0){
+            //如果输入的是小数点，并且之前没有出现过小数点，就将小数点追加到字符串末尾
+            textField1.setText(textField1.getText()+".");
+        }
+        IsFirstNum=false;
+    }
+    //C按钮事件
+    private void CProcess(){
+        //将计算器恢复到初始状态
+        textField1.setText("0");
+        IsFirstNum=true;
+        userOperater="=";
+    }
+    //Backspace按钮事件
+    private void Backspace(){
+        //如果文本框中有字符则回退一格，否则恢复计算器初始状态
+        String nowText=textField1.getText();
+        int i=nowText.length();
+        if(i>0){
+            nowText=nowText.substring(0,i-1);
+            textField1.setText(nowText);
+        }else{
+            textField1.setText("0");
+            IsFirstNum=true;
+            userOperater="=";
+        }
+    }
+}
