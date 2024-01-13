@@ -1,0 +1,401 @@
+实现界面良好、操作方便的万年历，包括日期与星期的查询、阴历的显示，最好添加日程管理功能。
+提示：使用图形用户界面。 
+
+package Calendar;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
+
+public class CalendarPad extends JFrame implements MouseListener {
+    int year, month, day;    //年，月，日
+    JTextField showDay[];    //显示日期
+    JLabel title[];          //标题
+    Calendar rili;           //日历
+    int week;                //定义星期
+    Month a;                 //负责改变月
+    Year b;                  //负责改变年;
+
+    String week1[] = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+    JPanel leftPanel, rightPanel;    //设置左右区域
+
+    //窗口系统
+    public CalendarPad(int year, int month, int day) {
+        setTitle("李腾辉的万年历");   //窗口名
+        //左侧布局
+        leftPanel = new JPanel();
+        JPanel leftCenter = new JPanel();   //左侧中部，放置日历
+        JPanel leftNorth = new JPanel();    //左侧北部，放置标题和日期更改系统
+        leftCenter.setLayout(new BorderLayout());   // 使用BorderLayout布局
+
+        //右侧布局
+        rightPanel = new JPanel();
+
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        //调用月份和年份的方法
+        b = new Year(this);
+        b.setYear(year);
+        a = new Month(this);
+        a.setMonth(month);
+
+        //创建标题和日期显示的界面
+        title = new JLabel[7];
+        showDay = new JTextField[42];
+
+        // 包含星期的面板
+        JPanel titlePanel = new JPanel(new GridLayout(1, 7));
+        leftCenter.add(titlePanel, BorderLayout.NORTH);   //左半北方向
+        for (int j = 0; j < 7; j++) {
+            title[j] = new JLabel();
+            title[j].setText(week1[j]);
+            title[j].setBorder(BorderFactory.createRaisedBevelBorder());   //给星期加个边框
+            titlePanel.add(title[j]);
+            title[j].setFont(new Font("TimesRoman", Font.BOLD, 25));
+        }
+        title[0].setForeground(Color.red);    //周日显示红色
+        title[6].setForeground(Color.blue);   //周六显示蓝色
+
+        // 包含日期文本框的面板
+        JPanel dayPanel = new JPanel(new GridLayout(6, 7));
+        leftCenter.add(dayPanel, BorderLayout.CENTER);   //使日期居中显示
+        for (int i = 0; i < 42; i++) {
+            showDay[i] = new JTextField();
+            showDay[i].addMouseListener(this);
+            showDay[i].setEditable(false);
+            showDay[i].setFont(new Font("TimesRoman", Font.BOLD, 35));
+            showDay[i].setHorizontalAlignment(SwingConstants.CENTER);   //水平居中
+            dayPanel.add(showDay[i]);
+        }
+
+        //在右侧面板加入图片背景
+        rightPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image image = Toolkit.getDefaultToolkit().getImage("C:\\Users\\Suzaku\\Desktop\\个人小文件\\沐笙（白）.jpg");
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+
+            }
+        };
+
+        //创建标题
+        rili = Calendar.getInstance();
+        Box box = Box.createHorizontalBox();
+        box.add(b);
+        box.add(a);
+        leftNorth.add(box);
+        leftPanel.setLayout(new BorderLayout(20, 20));   //创建一个文本框，用于放标题
+        leftPanel.add(leftNorth, BorderLayout.CENTER);
+        leftPanel.add(leftCenter, BorderLayout.SOUTH);
+        String labelText = " ↓输入框输入所查年份，回车确定↓ ";
+        JLabel label1 = new JLabel(new String(labelText.getBytes(), StandardCharsets.UTF_8));   //防止字体乱码
+        label1.setFont(new Font("黑体", Font.PLAIN, 30));    //设置字体和字号
+        leftPanel.add(label1, BorderLayout.NORTH);   //左半靠北
+        label1.setHorizontalAlignment(SwingConstants.CENTER);   //居中
+        leftPanel.validate();
+
+        //建立左右分割
+        Container con = getContentPane();
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+        con.add(split, BorderLayout.CENTER);
+        con.validate();
+
+        //创建右半部分标题
+        String LTH = " 李腾辉，2202班，221110062 ";
+        JLabel label = new JLabel(new String(LTH.getBytes(), StandardCharsets.UTF_8));
+        label.setFont(new Font("TimesRoman", Font.BOLD, 30));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);   //水平居中对齐（X轴）
+        label.setAlignmentY(Component.TOP_ALIGNMENT);      //垂直顶部对齐（Y轴）
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));    //纵向布局
+        rightPanel.add(label);
+
+        //下标题
+        rightPanel.add(Box.createVerticalGlue());    //可以调节垂直方向上的窗口文字
+        JLabel textLabel = new JLabel("←粉色为当前日期，或选中日期");
+        textLabel.setFont(new Font("TimesRoman", Font.BOLD, 35));
+        textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);     //水平居中对齐（X轴）
+        textLabel.setAlignmentY(Component.BOTTOM_ALIGNMENT);     //垂直底部对齐（Y轴）
+        rightPanel.add(textLabel);
+
+        //设置窗口
+        setCalendar(year, month);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);    //窗口关闭时退出程序
+            }
+        });
+        setVisible(true);         //使窗口可见
+        setBounds(0, 0, 1215, 700);   //设置窗口大小
+        validate();
+    }
+
+
+    //设置日历牌
+    public void setCalendar(int year, int month)
+    {
+        rili.set(year, month - 1, 1);
+        week = rili.get(Calendar.DAY_OF_WEEK) - 1;
+        //如果月份是1、3、5、7、8、10或12，说明该月有31天
+        if (month == 1 || month == 3 || month == 5 || month == 7
+                || month == 8 || month == 10 || month == 12) {
+            nunber(week, 31);
+            //如果月份是4、6、9或11，说明该月有30天
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            nunber(week, 30);
+            //如果月份是2，需要进一步判断是否是闰年
+        } else if (month == 2) {
+            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+                nunber(week, 29);   //闰年，29天
+            } else {
+                nunber(week, 28);   //不是闰年，28天
+            }
+        }
+    }
+
+    //设置日期数字
+    public void nunber(int weekday, int monthday) {
+        for (int i = weekday, n = 1; i < weekday + monthday; i++) {
+            showDay[i].setText("" + n);
+            if (n == day) {
+                //今天的日期或是鼠标选中的日期为粉色
+                showDay[i].setForeground(Color.pink);
+            } else if (i % 7 == 0) {
+                // 周日为红色
+                showDay[i].setForeground(Color.red);
+            } else if (i % 7 == 6) {
+                // 周六为蓝色
+                showDay[i].setForeground(Color.blue);
+            } else {
+                //其他为黑色
+                showDay[i].setForeground(Color.black);
+            }
+            n++;
+
+        }
+        //切换年份和月份时清空原来的日期
+        for (int i = 0; i < weekday; i++) {
+            showDay[i].setText("");
+        }
+        for (int i = weekday + monthday; i < 42; i++) {
+            showDay[i].setText("");
+        }
+    }
+
+    public int getYear() {return year;}
+
+    public void setYear(int y) {year = y;}
+
+    public int getMonth() {return month;}
+
+    public void setMonth(int m) {month = m;}
+
+    //获取鼠标事件，按下按钮后切换日期
+    public void mousePressed(MouseEvent e) {
+        JTextField source = (JTextField) e.getSource();
+        try {
+            day = Integer.parseInt(source.getText());
+        } catch (Exception ee) {
+        }
+    }
+    //除点击外的其他鼠标事件为空
+    public void mouseClicked(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+
+    //主函数
+    public static void main(String args[]) {
+        Calendar calendar = Calendar.getInstance();
+        int y = calendar.get(Calendar.YEAR);
+        int m = calendar.get(Calendar.MONTH) + 1;
+        int d = calendar.get(Calendar.DAY_OF_MONTH);
+        new CalendarPad(y, m, d);
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Calendar;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+//月份类
+public class Month extends Box implements ActionListener
+{
+    int month;                        //月份
+    JTextField showMonth=null;        //月份显示
+    JButton nextMonth, laterMonth;    //月份切换
+    CalendarPad cal1;
+
+    public Month(CalendarPad cal1)
+    //修改月份
+    {
+        super(BoxLayout.X_AXIS);
+        this.cal1=cal1;
+        showMonth=new JTextField(2);     //新建月份显示的文本框
+        month=cal1.getMonth();
+        showMonth.setEditable(false);   //不可修改月份（会有显示bug）
+        //文字调整
+        showMonth.setForeground(Color.blue);
+        showMonth.setFont(new Font("TimesRomn",Font.BOLD,20));
+        showMonth.setHorizontalAlignment(SwingConstants.CENTER);
+        //设置切换月份的按钮
+        nextMonth=new JButton("下一月");
+        laterMonth=new JButton("上一月");
+        add(laterMonth);
+        add(showMonth);
+        add(nextMonth);
+        laterMonth.addActionListener(this);
+        nextMonth.addActionListener(this);
+        showMonth.setText(""+month);
+        showMonth.setOpaque(false);
+
+    }
+    public void setMonth(int month)
+    {
+        if(month<=12 && month>=1)
+        {
+            this.month=month;
+        }
+        else
+        {
+            this.month=1;
+        }
+        showMonth.setText(""+month);
+    }
+
+    public int getMonth()
+    {
+        return month;
+    }
+
+    //处理切换月份按钮的操作
+    public void actionPerformed(ActionEvent e)
+    {
+        //上一个月（1月分开讨论）
+        if(e.getSource()==laterMonth)
+        {
+            if(month>=2)
+            {
+                month=month-1;
+                cal1.setMonth(month);
+                cal1.setCalendar(cal1.getYear(),month);
+            }
+            else if(month==1)
+            {
+                month=12;
+                cal1.setMonth(month);
+                cal1.setCalendar(cal1.getYear(),month);
+            }
+            showMonth.setText(""+month);
+        }
+        //下一个月（12月分开讨论）
+        else if(e.getSource()==nextMonth)
+        {
+            if(month<12)
+            {
+                month=month+1;
+                cal1.setMonth(month);
+                cal1.setCalendar(cal1.getYear(),month);
+            }
+            else if(month==12)
+            {
+                month=1;
+                cal1.setMonth(month);
+                cal1.setCalendar(cal1.getYear(),month);
+            }
+            showMonth.setText(""+month);
+        }
+    }
+}
+
+———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+package Calendar;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Year extends Box implements ActionListener
+{
+    int year;
+    JTextField showYear=null;
+    JButton nextYear,laterYear;
+    CalendarPad cal;
+    public Year(CalendarPad cal)
+    {
+        //年份类
+        super(BoxLayout.X_AXIS);
+        this.cal=cal;
+        showYear=new JTextField(4);    //新建年份显示的文本框
+        year=cal.getYear();
+        //文字调整
+        showYear.setForeground(Color.blue);
+        showYear.setFont(new Font("TimesRomn",Font.BOLD,20));
+        showYear.setHorizontalAlignment(SwingConstants.CENTER);
+        //设置年份切换按钮
+        nextYear=new JButton("下一年");
+        laterYear=new JButton("上一年");
+        add(laterYear);
+        add(showYear);
+        add(nextYear);
+        showYear.addActionListener(this);
+        laterYear.addActionListener(this);
+        nextYear.addActionListener(this);
+    }
+    public void setYear(int year)
+    {
+        this.year=year;
+        showYear.setText(""+year);
+    }
+    public int getYear()
+    {
+        return year;
+    }
+
+    //处理切换年份按钮的操作
+    public void actionPerformed(ActionEvent e)
+    {
+        //上一年
+        if(e.getSource()==laterYear)
+        {
+            year=year-1;
+            showYear.setText(""+year);
+            cal.setYear(year);
+            cal.setCalendar(year,cal.getMonth());
+        }
+        //下一年
+        else if(e.getSource()==nextYear)
+        {
+            year=year+1;
+            showYear.setText(""+year);
+            cal.setYear(year);
+            cal.setCalendar(year,cal.getMonth());
+        }
+        //输入年份时
+        else if(e.getSource()==showYear)
+        {
+            try
+            {
+                year=Integer.parseInt(showYear.getText());
+                showYear.setText(""+year);
+                cal.setYear(year);
+                cal.setCalendar(year,cal.getMonth());
+            }
+            catch(NumberFormatException ee)
+            {
+                showYear.setText(""+year);
+                cal.setYear(year);
+                cal.setCalendar(year,cal.getMonth());
+            }
+        }
+    }
+}
