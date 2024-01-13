@@ -1,0 +1,93 @@
+一、实验要求和目的：1.了解和掌握 线程的概念、线程的生命周期。 
+
+2. 多线程的编程:继承Thread类与使用Runnable接口。 
+
+3. 使用多线程机制创建线程、掌握线程同步和解决死锁问题得方法。
+
+二、实验内容：
+
+小朋友就餐，一圆桌前坐着5位小朋友，两个人中间有一根筷子，桌子中央有面条。小朋友边吃边玩，当饿了的时候拿起左右两根筷子吃饭，必须拿到两根筷子才能吃饭。
+但是，小朋友在吃饭过程中，可能会发生5个小朋友都拿起自己右手边的筷子，这样每个小朋友都因左手缺少筷子而没有办法吃饭。
+本案例要求用Java编写一个多线程程序解决小朋友就餐问题，使每个小朋友都能成功就餐。
+
+package Chopsticks;
+
+public class DiningPhilosophers {
+    private static final int NUM_PHILOSOPHERS = 5; // 小朋友数量
+    private static final int NUM_CHOPSTICKS = 5; // 筷子数量
+
+    public static void main(String[] args) {
+        Chopstick[] chopsticks = new Chopstick[NUM_CHOPSTICKS];
+        Philosopher[] philosophers = new Philosopher[NUM_PHILOSOPHERS];
+
+        // 初始化筷子
+        for (int i = 0; i < NUM_CHOPSTICKS; i++) {
+            chopsticks[i] = new Chopstick(i);
+        }
+
+        // 初始化小朋友
+        for (int i = 0; i < NUM_PHILOSOPHERS; i++) {
+            philosophers[i] = new Philosopher(i, chopsticks[i], chopsticks[(i + 1) % NUM_CHOPSTICKS]);
+            new Thread(philosophers[i]).start(); // 启动小朋友线程
+        }
+    }
+}
+
+class Philosopher implements Runnable {
+    private int id;//为小朋友编号
+    private Chopstick leftChopstick;//左边的筷子
+    private Chopstick rightChopstick;//右边的筷子
+
+    public Philosopher(int id, Chopstick leftChopstick, Chopstick rightChopstick) {
+        this.id = id;
+        this.leftChopstick = leftChopstick;
+        this.rightChopstick = rightChopstick;
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                think();
+                eat();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void think() throws InterruptedException {
+        System.out.println("第 " + id + " 位小朋友正在玩游戏");
+        Thread.sleep((long) (Math.random() * 10000)); // 不吃饭就玩会游戏先
+    }
+
+    //当一个小朋友拿起左边的筷子时，其他小朋友可以继续拿起自己左边的筷子，
+    // 但是当一个小朋友同时拿起了两个筷子时，其他小朋友就需要等待该小朋友吃完后才能继续拿筷子就餐。
+    // 这样就能保证每个小朋友都能成功就餐。
+    private void eat() throws InterruptedException {
+        System.out.println("第 " + id + " 位小朋友饿了并拿起了筷子");
+
+        synchronized (leftChopstick) { // 先拿起左边的筷子
+            System.out.println("第 " + id + " 位小朋友拿起了左边的筷子");
+            synchronized (rightChopstick) { // 再拿起右边的筷子
+                System.out.println("第 " + id + " 位小朋友拿起了右边的筷子并开始吃饭");//必须左右两边筷子都拿起来了才可以吃饭
+                Thread.sleep((long) (Math.random() * 10000)); // 模拟吃饭
+                System.out.println("第 " + id + " 位小朋友吃完了饭并放下了右边的筷子.");//吃完饭先放右边筷子保证其他拿左边筷子的人可以继续吃饭
+            }
+            System.out.println("第 " + id + " 位小朋友放下了左边的筷子");
+        }
+    }
+}
+
+class Chopstick {
+    private int id;
+
+    public Chopstick(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+
