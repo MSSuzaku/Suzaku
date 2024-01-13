@@ -1,0 +1,175 @@
+package SnakeGame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class SnakeGame extends JFrame implements KeyListener {
+    private static final int WIDTH = 500; // 棋盘宽度
+    private static final int HEIGHT = 500; // 棋盘高度
+    private static final int SIZE = 20; // 每个格子的大小
+
+    private JPanel board; // 棋盘面板
+    private List<Snake> snake; // 蛇
+    private Point food; // 食物
+    private int direction; // 蛇头移动方向
+
+    public SnakeGame() {
+        setTitle("贪吃蛇游戏");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(WIDTH, HEIGHT);
+
+        board = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // 绘制食物
+                g.setColor(Color.RED);
+                g.fillRect(food.x, food.y, SIZE, SIZE);
+
+                // 绘制蛇
+                g.setColor(Color.GREEN);
+                for (Snake s : snake) {
+                    g.fillRect(s.getX(), s.getY(), SIZE, SIZE);
+                }
+            }
+        };
+        board.setBackground(Color.BLACK);
+        board.setLayout(null);
+
+        snake = new ArrayList<>();
+        snake.add(new Snake(5 * SIZE, 5 * SIZE)); // 初始化蛇，起始坐标为(5, 5)
+        direction = KeyEvent.VK_RIGHT; // 起始方向向右
+
+        generateFood(); // 生成食物
+
+        add(board);
+        addKeyListener(this);
+        setVisible(true);
+
+        startGame(); // 开始游戏
+    }
+
+    private void startGame() {
+        Timer timer = new Timer(200, e -> {
+            move(); // 移动蛇
+            checkCollision(); // 检查碰撞
+            board.repaint(); // 重新绘制界面
+        });
+        timer.start();
+    }
+
+    private void move() {
+        int x = snake.get(0).getX();
+        int y = snake.get(0).getY();
+
+        switch (direction) { // 根据方向移动蛇头
+            case KeyEvent.VK_LEFT:
+                x -= SIZE;
+                break;
+            case KeyEvent.VK_RIGHT:
+                x += SIZE;
+                break;
+            case KeyEvent.VK_UP:
+                y -= SIZE;
+                break;
+            case KeyEvent.VK_DOWN:
+                y += SIZE;
+                break;
+        }
+
+        // 创建新的蛇头，并将其添加到蛇列表的第一个位置
+        Snake newHead = new Snake(x, y);
+        snake.add(0, newHead);
+
+        // 如果蛇没有吃到食物，移除蛇尾
+        if (!isFoodEaten()) {
+            snake.remove(snake.size() - 1);
+        } else { // 如果蛇吃到食物，生成新的食物
+            generateFood();
+        }
+    }
+
+    private boolean isFoodEaten() {
+        return snake.get(0).getX() == food.x && snake.get(0).getY() == food.y;
+    }
+
+    private void generateFood() {
+        Random random = new Random();
+        int x = random.nextInt(WIDTH / SIZE) * SIZE;
+        int y = random.nextInt(HEIGHT / SIZE) * SIZE;
+        food = new Point(x, y);
+    }
+
+    private void checkCollision() {
+        // 检查蛇头是否撞墙
+        if (snake.get(0).getX() < 0 || snake.get(0).getX() >= WIDTH
+                || snake.get(0).getY() < 0 || snake.get(0).getY() >= HEIGHT) {
+            gameOver();
+        }
+
+        // 检查蛇头是否撞到身体
+        for (int i = 1; i < snake.size(); i++) {
+            if (snake.get(0).getX() == snake.get(i).getX()
+                    && snake.get(0).getY() == snake.get(i).getY()) {
+                gameOver();
+            }
+        }
+    }
+
+    private void gameOver() {
+        JOptionPane.showMessageDialog(this, "游戏结束", "提示", JOptionPane.PLAIN_MESSAGE);
+        System.exit(0);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        // 根据按键设置蛇的移动方向，但不允许直接掉头
+        if (key == KeyEvent.VK_LEFT && direction != KeyEvent.VK_RIGHT) {
+            direction = KeyEvent.VK_LEFT;
+        } else if (key == KeyEvent.VK_RIGHT && direction != KeyEvent.VK_LEFT) {
+            direction = KeyEvent.VK_RIGHT;
+        } else if (key == KeyEvent.VK_UP && direction != KeyEvent.VK_DOWN) {
+            direction = KeyEvent.VK_UP;
+        } else if (key == KeyEvent.VK_DOWN && direction != KeyEvent.VK_UP) {
+            direction = KeyEvent.VK_DOWN;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(SnakeGame::new);
+    }
+}
+
+class Snake {
+    private int x;
+    private int y;
+
+    public Snake(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+
